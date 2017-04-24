@@ -1,12 +1,16 @@
-MEAN Session 12
+# MEAN Session 12
 
-Install Angular CLI
+## Homework
+[Angular Quickstart Tutorial](https://angular.io/docs/ts/latest/)
+
+
+[Install Angular CLI](https://angular.io/docs/ts/latest/cli-quickstart.html)
 
 `$ npm install -g angular-cli`
 
-`$ ng new stories`
+`$ ng new pirates`
 
-`$ cd stories`, `subl .` and `$ npm start` ( what about `$ ng serve`?)
+`$ cd pirates`, `subl .` and `$ ng serve`
 
 App is at `http://localhost:4200/`
 
@@ -14,7 +18,7 @@ We can use ES5, ES2016, or TypeScript to write Angular 2. We will write all code
 
 ### app.module.ts
 
-A module, not a component
+Angular modules
 
 ```
 import { BrowserModule } from '@angular/platform-browser';
@@ -39,23 +43,21 @@ import { AppComponent } from './app.component';
 export class AppModule { }
 ```
 
-Note: named imports from node_modules.
+Note: 
+* ES6 modules, named imports from node_modules. 
+* Custom imports from local file system `('./ ...')`. 
+* ES6 destructuring syntax `import { BrwoserModule }`
+* ES6 Classes
 
-Custom imports from local file system `('./ ...')`
-
-Decorators - @NgModule 
-- decorates the exported class AppModule
+@Decorators - metadata about components (where to find the template etc.)
+- `@NgModule` decorates the exported class AppModule
 - `imports` replaces angular 1 dependency injection e.g.: `angular.module('app, [])`
 - bootstrap defines the starting component
 - export AppModule replaces `<div ng-app='app'>` and is our root module
 
-### main.ts
-
-The kickoff point for the application:
-
-`platformBrowserDynamic().bootstrapModule(AppModule);`
-
 ### Components
+
+Contains the application logic that controls a portion or region of the view
 
 ```
 import { Component } from '@angular/core';
@@ -71,6 +73,16 @@ export class AppComponent {
 ```
 
 Note: `selector` is the tag. In Angular 1 this was a component declaration e.g. `appRoot`
+
+The @Component decorates (provides metadata to) the exported component. 
+
+### main.ts
+
+The kickoff point for the application:
+
+`platformBrowserDynamic().bootstrapModule(AppModule);`
+
+Which uses the selector in the html file:
 
 ```
 <!doctype html>
@@ -92,11 +104,11 @@ Note: `selector` is the tag. In Angular 1 this was a component declaration e.g. 
 
 Note: no ng-app.
 
-Try `ng generate component StoryComponent`
+Try `ng generate component pirate-list`
 
-Create components folder, place assets for `app-component` and `story-component` into it.
+Create components folder, place assets for `app-component` and `pirate-list-component` into it.
 
-module: `import { StoryComponent } from './components/story-component/story-component.component';`
+module: `import { PirateListComponent } from 'pirate-list-component/pirate-list.component';`
 
 ```
 import { BrowserModule } from '@angular/platform-browser';
