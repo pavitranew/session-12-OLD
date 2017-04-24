@@ -1,0 +1,8 @@
+<ul>
+  <li *ngFor="let vessel of vessels">
+    {{vessel.name}}
+  </li>
+</ul>
+<div *ngIf="vessels.length">
+  <h3>You have {{vessels.length}} vessels</h3>
+</div>
