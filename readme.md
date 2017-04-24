@@ -104,55 +104,6 @@ Which uses the selector in the html file:
 
 Note: no ng-app.
 
-Try `ng generate component pirate-list`
-
-Create components folder, place assets for `app-component` and `pirate-list-component` into it.
-
-module: `import { PirateListComponent } from 'pirate-list-component/pirate-list.component';`
-
-```
-import { BrowserModule } from '@angular/platform-browser';
-import { NgModule } from '@angular/core';
-import { FormsModule } from '@angular/forms';
-import { HttpModule } from '@angular/http';
-
-import { AppComponent } from './components/app-component/app.component';
-import { StoryComponent } from './components/story-component/story-component.component';
-
-@NgModule({
-  declarations: [
-    AppComponent,
-    StoryComponent
-  ],
-  imports: [
-    BrowserModule,
-    FormsModule,
-    HttpModule
-  ],
-  providers: [],
-  bootstrap: [StoryComponent]
-})
-export class AppModule { }
-
-```
-
-```
-import { Component } from '@angular/core';
-
-@Component({
-  selector: 'app-root',
-  template: `
-    <h3>{{story.name}}</h3>
-    <h3 [innerText]="story.name"></h3>
-    <div [style.color]="color">{{story.name}}</div>
-  `
-})
-export class StoryComponent {
-  story = { id: 100, name: 'The Force Awakens' };
-  color = 'blue';
-}
-```
-
 ### Angular 2 Directives
 
 ng-repeat, ng-if
@@ -161,54 +112,155 @@ Structural directives contain a *. They are replacements for [html5 native templ
 
 *ngFor, *ngIf
 
-[Example](https://embed.plnkr.co/?show=preview)
+[Example]
+
+Try `ng generate component vessels`
+
+app.module:
+
+```
+import { BrowserModule } from '@angular/platform-browser';
+import { NgModule } from '@angular/core';
+import { FormsModule } from '@angular/forms';
+import { HttpModule } from '@angular/http';
+
+import { AppComponent } from './app.component';
+import { VesselsComponent } from './vessels/vessels.component';
+
+@NgModule({
+  declarations: [
+    AppComponent,
+    VesselsComponent
+  ],
+  imports: [
+    BrowserModule,
+    FormsModule,
+    HttpModule
+  ],
+  providers: [],
+  bootstrap: [VesselsComponent]
+})
+export class AppModule { }
+
+```
+
+vessels.component:
 
 ```
 import { Component } from '@angular/core';
 
 @Component({
-  moduleId: module.id,
-  selector: 'my-vehicles',
-   templateUrl: './vehicles.component.html'
+  selector: 'app-vessels',
+  templateUrl: './vessels.component.html',
+  styleUrls: ['./vessels.component.css']
 })
-export class VehiclesComponent {
-  vehicles = [
-    { id: 1, name: 'X-Wing Fighter' },
-    { id: 2, name: 'Tie Fighter' },
+export class VesselsComponent {
+
+  vessels = [
+    { id: 1, name: 'Adventure Galley' },
+    { id: 2, name: 'HMS Rackham' },
     { id: 3, name: 'Y-Wing Fighter' }
   ];
+
 }
 ```
 
+vessels.component.html:
+
 ```
 <ul>
-  <li *ngFor="let vehicle of vehicles">
-    {{vehicle.name}}
+  <li *ngFor="let vessel of vessels">
+    {{vessel.name}}
   </li>
 </ul>
-<div *ngIf="vehicles.length">
-  <h3>You have {{vehicles.length}} vehicles</h3>
+<div *ngIf="vessels.length">
+  <h3>You have {{vessels.length}} vessels</h3>
 </div>
 ```
 
 ### Data Binding
 
 #### Interpolation  DOM < Component  
-e.g. expressions `{{ story.name }}`
+e.g. expressions `{{ vessel.name }}`
 
 #### One Way Binding  DOM < Component  
-e.g `ng-bind` in Angular 1. `[innerText]="story.name"` in Angular 2. The square brackets can contain *any valid property in html*. Another example:
-`<div [style.color]="color">{{ story.name }}</div>`. This is a big improvement over Angular 1 where we had a ton of directives (see below).
+e.g `ng-bind` in Angular 1. `[innerText]="vessel.name"` in Angular 2. The square brackets can contain *any valid property in html*. Another example:
+`<div [style.color]="color">{{ vessel.name }}</div>`. This is a big improvement over Angular 1 where we had a ton of directives (see below).
 
 #### Event Binding  DOM > Component  
 e.g. `ng-click`. In Angular 2 `(click)`
 
 #### Two Way Binding  DOM < > Component
 e.g. `ng-model`. In Agular two use hotdogs:
-`<input [(ngModel)]="story.name" />`
+`<input [(ngModel)]="vessel.name" />`
 Check the use of square and rounded brackets in the two case above.
 
-[Example](https://embed.plnkr.co/?show=preview)
+`ng generate component binding`
+
+app.module:
+
+```
+import { BrowserModule } from '@angular/platform-browser';
+import { NgModule } from '@angular/core';
+import { FormsModule } from '@angular/forms';
+import { HttpModule } from '@angular/http';
+
+import { AppComponent } from './app.component';
+import { VesselsComponent } from './vessels/vessels.component';
+import { BindingComponent } from './binding/binding.component';
+
+@NgModule({
+  declarations: [
+    AppComponent,
+    VesselsComponent,
+    BindingComponent
+  ],
+  imports: [
+    BrowserModule,
+    FormsModule,
+    HttpModule
+  ],
+  providers: [],
+  bootstrap: [BindingComponent]
+})
+export class AppModule { }
+```
+
+binding.component:
+
+```
+import { Component } from '@angular/core';
+
+@Component({
+  selector: 'app-binding',
+  templateUrl: './binding.component.html',
+  styleUrls: ['./binding.component.css']
+})
+export class BindingComponent {
+   title = 'Angular Two-Way Binding';
+  story = {
+  name: 'The Sack of the Edmund Fitzgerald'
+  };
+
+}
+```
+
+binding.component.html:
+
+```
+<div>
+  <h3>{{title}}</h3>
+  <div>
+    2 Way Binding
+    <input [(ngModel)]="story.name">
+  </div>
+  <p>{{story.name}}</p>
+  <div>
+    1 Way Binding
+    <input [value]="story.name">
+  </div>
+</div>
+```
 
 Note the one way binding.
 
@@ -236,18 +288,20 @@ Add function to component:
 import { Component } from '@angular/core';
 
 @Component({
-  moduleId: module.id,
-  selector: 'my-app',
-   templateUrl: './app.component.html',
+  selector: 'app-binding',
+  templateUrl: './binding.component.html',
+  styleUrls: ['./binding.component.css']
 })
-export class AppComponent {
-  title = 'Angular Two-Way Binding';
+export class BindingComponent {
+   title = 'Angular Two-Way Binding';
   story = {
-    name: 'The Empire Strikes Back'
+  name: 'The Sack of the Edmund Fitzgerald'
   };
+
   changeName(){
-    this.story.name = 'Jedi rules'
+    this.story.name = 'Skull and Cross Bones'
   }
+
 }
 ```
 
