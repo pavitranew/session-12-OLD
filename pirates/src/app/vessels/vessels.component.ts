@@ -10,7 +10,7 @@ export class VesselsComponent {
   vessels = [
     { id: 1, name: 'Adventure Galley' },
     { id: 2, name: 'HMS Rackham' },
-    { id: 3, name: 'Y-Wing Fighter' }
+    { id: 3, name: 'Stout' }
   ];
 
 }

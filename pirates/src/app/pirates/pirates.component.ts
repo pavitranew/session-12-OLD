@@ -1,15 +1,33 @@
-import { Component, OnInit } from '@angular/core';
+import { Component } from '@angular/core';
 
 @Component({
-  selector: 'app-pirates',
-  templateUrl: './pirates.component.html',
-  styleUrls: ['./pirates.component.css']
+	selector: 'app-pirates',
+	templateUrl: './pirates.component.html',
+	styleUrls: ['./pirates.component.css']
 })
-export class PiratesComponent implements OnInit {
+export class PiratesComponent {
 
-  constructor() { }
-
-  ngOnInit() {
-  }
-
+	pirates = [
+	{
+		name: 'John Rackham',
+		image: 'avatar.svg',
+		weapon: 'Sword',
+		vessel: 'Bounty'
+	}, {
+		name: 'Donald Trump',
+		image: 'avatar.svg',
+		weapon: 'Twitter',
+		vessel: 'Stout'
+	}, {
+		name: 'Sea Dog',
+		image: 'avatar.svg',
+		weapon: 'Sword',
+		vessel: 'Bounty'
+	}, {
+		name: 'Jean Lafitte',
+		image: 'avatar.svg',
+		weapon: 'Sword',
+		vessel: 'Bounty'
+	}
+	];
 }
