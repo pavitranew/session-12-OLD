@@ -8,6 +8,7 @@ import { AppComponent } from './app.component';
 import { VesselsComponent } from './vessels/vessels.component';
 import { BindingComponent } from './binding/binding.component';
 import { PiratesComponent } from './pirates/pirates.component';
+import { CharacterComponent } from './pirates/pirates';
 
 
 @NgModule({
@@ -16,7 +17,8 @@ import { PiratesComponent } from './pirates/pirates.component';
     VesselsComponent,
     BindingComponent,
     PiratesComponent,
-    routableComponents
+    routableComponents,
+    CharacterComponent
   ],
   imports: [
     BrowserModule,

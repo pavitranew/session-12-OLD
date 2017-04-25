@@ -791,9 +791,136 @@ Edit the pirates.component.html to show a pirates list.
 
 
 
+
+
+
+
 ### Notes
 
-HTTP 
+Nested components
+
+Differentiates between pirate-list.component and pirate.component.
+
+Includes pirate.ts
+
+Pirate.ts
+
+```
+export class Pirate {
+  constructor(public weapon: string, public name: string) { }
+}
+```
+
+pirates.component.html
+
+```
+<ul>
+  <li *ngFor="let pirate of pirates" (click)="select(pirate)">
+    {{pirate.name}}
+  </li>
+</ul>
+<!-- <my-pirate *ngIf="selectedPirate" [pirate]="selectedPirate"></my-pirate> -->
+<div *ngIf="pirates.length">
+  <h3>You have {{pirates.length}} pirates</h3>
+</div>
+
+```
+
+Pirates.component
+
+```
+import { Component, Input } from '@angular/core';
+import { Pirate } from './pirate';
+
+@Component({
+  selector: 'app-pirates',
+  templateUrl: './pirates.component.html',
+  styleUrls: ['./pirates.component.css']
+})
+export class PiratesComponent {
+
+    pirates = [
+  {
+    name: 'John Rackham',
+    image: 'avatar.svg',
+    weapon: 'Sword',
+    vessel: 'Bounty'
+  }, {
+    name: 'Donald Trump',
+    image: 'avatar.svg',
+    weapon: 'Twitter',
+    vessel: 'Stout'
+  }, {
+    name: 'Sea Dog',
+    image: 'avatar.svg',
+    weapon: 'Sword',
+    vessel: 'Bounty'
+  }, {
+    name: 'Jean Lafitte',
+    image: 'avatar.svg',
+    weapon: 'Sword',
+    vessel: 'Bounty'
+  }
+  ]
+
+  @Input() pirate: Pirate;
+
+  selectedPirate: Pirate;
+
+  select(pirate: Pirate) {
+    this.selectedPirate = pirate;
+    console.log(this)
+  }
+}
+```
+
+NEW pirates.ts
+
+```
+import { Component, Input } from '@angular/core';
+
+import { Pirate } from './pirate';
+
+@Component({
+  selector: 'my-pirate',
+   templateUrl: './pirates.html'
+})
+export class CharacterComponent {
+  @Input() pirate: Pirate;
+}
+
+```
+
+NEW pirates.html
+
+```
+<h3>You selected {{pirate.name}}</h3>
+```
+
+app.module:
+
+```
+import { CharacterComponent } from './pirates/pirates';
+```
+
+and
+
+```
+@NgModule({
+  declarations: [
+    AppComponent,
+    VesselsComponent,
+    BindingComponent,
+    PiratesComponent,
+    routableComponents,
+    CharacterComponent
+  ],
+```
+
+
+
+
+### HTTP 
 - $http.get('api/...') vs 
 - http.get('api/...')
 

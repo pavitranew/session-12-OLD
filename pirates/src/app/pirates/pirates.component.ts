@@ -1,4 +1,5 @@
-import { Component } from '@angular/core';
+import { Component, Input } from '@angular/core';
+import { Pirate } from './pirate';
 
 @Component({
   selector: 'app-pirates',
@@ -7,7 +8,7 @@ import { Component } from '@angular/core';
 })
 export class PiratesComponent {
 
-  pirates = [
+    pirates = [
   {
     name: 'John Rackham',
     image: 'avatar.svg',
@@ -30,4 +31,13 @@ export class PiratesComponent {
     vessel: 'Bounty'
   }
   ]
+
+  @Input() pirate: Pirate;
+
+  selectedPirate: Pirate;
+
+  select(pirate: Pirate) {
+    this.selectedPirate = pirate;
+    console.log(this)
+  }
 }
