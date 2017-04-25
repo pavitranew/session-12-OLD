@@ -15,7 +15,8 @@ import { PiratesComponent } from './pirates/pirates.component';
     AppComponent,
     VesselsComponent,
     BindingComponent,
-    PiratesComponent
+    PiratesComponent,
+    routableComponents
   ],
   imports: [
     BrowserModule,

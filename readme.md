@@ -570,6 +570,41 @@ import { Component } from '@angular/core';
 export class PageNotFoundComponent { }
 ```
 
+import it into app-routing.module:
+
+```
+import { PageNotFoundComponent } from './pagenotfound.component';
+```
+
+and export it in the same module:
+
+```
+export const routableComponents = [
+  PiratesComponent,
+  VesselsComponent,
+  PageNotFoundComponent
+];
+```
+
+routableComponents in app.module:
+
+```
+import { AppRoutingModule, routableComponents } from './app-routing.module';
+```
+
+Be sure to add it to the declarations:
+
+```
+@NgModule({
+  declarations: [
+    AppComponent,
+    VesselsComponent,
+    BindingComponent,
+    PiratesComponent,
+    routableComponents
+  ],
+```
+
 
 #### pirates
 
@@ -640,6 +675,8 @@ export class PiratesComponent {
 ```
 
 Edit the pirates.component.html to show a pirates list.
+
+
 
 
 
