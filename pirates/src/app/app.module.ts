@@ -6,19 +6,23 @@ import { HttpModule } from '@angular/http';
 import { AppComponent } from './app.component';
 import { VesselsComponent } from './vessels/vessels.component';
 import { BindingComponent } from './binding/binding.component';
+import { PiratesComponent } from './pirates/pirates.component';
+import { AppRoutingModule, routableComponents } from './app-routing.module';
 
 @NgModule({
   declarations: [
     AppComponent,
     VesselsComponent,
-    BindingComponent
+    BindingComponent,
+    PiratesComponent
   ],
   imports: [
     BrowserModule,
     FormsModule,
-    HttpModule
+    HttpModule,
+    AppRoutingModule
   ],
   providers: [],
-  bootstrap: [BindingComponent]
+  bootstrap: [AppComponent]
 })
 export class AppModule { }

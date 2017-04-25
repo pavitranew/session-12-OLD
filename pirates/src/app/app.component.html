@@ -1,3 +1,17 @@
-<h1>
-  {{title}}
-</h1>
+<div>
+  <header>
+    <h1>Pirates</h1>
+    <h3>Router Demo</h3>
+    <nav>
+      <ul>
+        <li><a [routerLink]="['/pirates']" href="">Pirates</a></li>
+        <li><a [routerLink]="['/vessels']" href="">Vessels</a></li>
+      </ul>
+    </nav>
+  </header>
+  <main>
+    <section>
+      <router-outlet></router-outlet>
+    </section>
+  </main>
+</div>
