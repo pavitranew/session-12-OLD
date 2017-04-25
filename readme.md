@@ -124,12 +124,12 @@ export class AppModule { }
 Note: 
 * ES6 modules, named imports from node_modules. 
 * Custom imports from local file system `('./ ...')`. 
-* ES6 destructuring syntax `import { BrwoserModule }`
+* ES6 destructuring syntax `import { BrowserModule }`
 * ES6 Classes
 
 @Decorators - metadata about components (where to find the template etc.)
 - `@NgModule` decorates the exported class AppModule
-- `imports` replaces angular 1 dependency injection e.g.: `angular.module('app, [])`
+- `imports` replaces Angular 1 dependency injection e.g.: `angular.module('app, [])`
 - bootstrap defines the starting component
 - export AppModule replaces `<div ng-app='app'>` and is our root module
 
@@ -190,7 +190,7 @@ Structural directives contain a *. They are replacements for [html5 native templ
 
 *ngFor, *ngIf
 
-[Example]
+#### Example
 
 Try `ng generate component vessels`
 
