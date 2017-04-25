@@ -419,7 +419,51 @@ import { Component } from '@angular/core';
 export class PageNotFoundComponent { }
 ```
 
+### Vessels Service
+
+Isolate data management in reusable services and use dependency injection to make them available. 
+
+Using onInit hooks to load code before rendering.
+
+Angular 1 used a confusing array of factories, providers, serivces etc. In Angular 2 we simply use a class.
+
+An example of a reusable serivce:
+
+```
+@Injectable()
+export class VesselService {
+  getVessels() {
+    return [
+    { id: 1, name: 'Adventure Galley' },
+    { id: 2, name: 'HMS Rackham' },
+    { id: 3, name: 'Y-Wing Fighter' }
+    ]
+  }
+}
+```
+
+It simply exports a class.
+
+Need services
+
+
+
+
+
+
+
+
 #### pirates
+
+HTTP 
+- $http.get('api/...') vs 
+- http.get('api/...')
+
+Can return a promise but returns an rxjs observable by default.
+
+1. Import the http module into the app root
+2. Call http.get in a service and return a mapped result
+3. Subscribe to the service's function in a component
 
 
 
