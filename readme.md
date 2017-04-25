@@ -1,10 +1,82 @@
 # MEAN Session 12
 
 ## Homework
-Pirates list should display when on the pirates route. Use *ngFor and *ngIf similarly to the vessels html.
+Pirates list should display when on the pirates route. Use *ngFor and *ngIf similarly to the vessels html. Apply styling.
 
 ## Reading
 [Angular Quickstart Tutorial](https://angular.io/docs/ts/latest/)
+
+### React Homework
+
+Create a dropdown for the pirate selector:
+
+Duel.js:
+
+was -
+```
+        <input
+          id='piratename'
+          placeholder='Pirate Name'
+          type='text'
+          autoComplete='off'
+          value={this.state.username}
+          onChange={this.handleChange}
+          />
+```
+
+became -
+
+```
+render(){
+    return (
+      <form className='column' onSubmit={this.handleSubmit}>
+        <label className='header' htmlFor='piratename'>
+        {this.props.label}
+        </label>
+          <select 
+          value={this.state.piratename} 
+          onChange={this.handleChange}>
+              {
+              Object.keys(this.state.pirates).map( (key) => 
+                <option 
+                  key={key} 
+                  value={this.state.pirates[key].piratename}>
+                  {this.state.pirates[key].piratename}
+                </option>
+              )
+            }
+          </select>
+
+          <button
+          className='button'
+          type='submit'
+          disabled={!this.state.piratename}>
+            Submit
+          </button>
+      </form>
+    )
+  }
+```
+
+```
+  handleChange(event){
+    const value = event.target.value
+    this.setState(function(){
+      return {
+        piratename: value
+      }
+    })
+  }
+```
+
+needed to make state available -
+
+```
+  this.state = {
+    piratename: '',
+    pirates: {}
+    }
+```
 
 ## Angular 2
 
@@ -18,7 +90,9 @@ Pirates list should display when on the pirates route. Use *ngFor and *ngIf simi
 
 App is at `http://localhost:4200/`
 
-We can use ES5, ES2016, or TypeScript to write Angular 2. We will write all code samples with TypeScript. (Like SASS is to CSS - added features.)
+We can use ES5, ES2016, or TypeScript to write Angular 2. 
+
+We will write all code samples with [TypeScript](http://www.typescriptlang.org). (Like SASS is to CSS - added features.)
 
 ### app.module.ts
 
