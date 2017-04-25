@@ -94,6 +94,115 @@ We can use ES5, ES2016, or TypeScript to write Angular 2.
 
 We will write all code samples with [TypeScript](http://www.typescriptlang.org). (Like SASS is to CSS - added features.)
 
+### Typescript
+
+`npm install -g typescript`
+
+greeter.ts:
+
+```
+function greeter(person) {
+    return "Hello, " + person;
+}
+
+var user = "Jane User";
+
+document.body.innerHTML = greeter(user);
+```
+
+`$ tsc greeter.ts`
+
+String type annotations:
+
+```
+function greeter(person: string) {
+    return "Hello, " + person;
+}
+
+const user = "Jane User";
+
+document.body.innerHTML = greeter(user);
+```
+
+Type annotations in TypeScript are lightweight ways to record the intended contract of the function or variable. In this case, we intend the greeter function to be called with a single string parameter.
+
+Try changing the call greeter to pass an array instead:
+
+```
+function greeter(person: string) {
+    return "Hello, " + person;
+}
+
+var user = [0, 1, 2];
+
+document.body.innerHTML = greeter(user);
+```
+
+`$ tsc greeter.ts`
+
+The greeter.js file is still created. TypeScript is warning that your code will likely not run as expected. This will typically occur in your editor.
+
+Interfaces. An interface that describes objects:
+
+```
+interface Person {
+    firstName: string;
+    lastName: string;
+}
+
+function greeter(person: Person) {
+    return "Hello, " + person.firstName + " " + person.lastName;
+}
+
+var user = { firstName: "Jane", lastName: "User" };
+
+document.body.innerHTML = greeter(user);
+```
+
+`$ tsc greeter.ts`
+
+Classes
+
+Create a Student class with a constructor and a few public fields. Notice that classes and interfaces play well together
+
+```
+class Student {
+    fullName: string;
+    constructor(public firstName, public middleInitial, public lastName) {
+        this.fullName = firstName + " " + middleInitial + " " + lastName;
+    }
+}
+
+interface Person {
+    firstName: string;
+    lastName: string;
+}
+
+function greeter(person : Person) {
+    return "Hello, " + person.firstName + " " + person.lastName;
+}
+
+var user = new Student("Jane", "M.", "User");
+
+document.body.innerHTML = greeter(user);
+```
+
+`$ tsc greeter.ts`
+
+```
+<!DOCTYPE html>
+<html>
+    <head><title>TypeScript Greeter</title></head>
+    <body>
+        <script src="greeter.js"></script>
+    </body>
+</html>
+```
+
+
+
+
+
 ### app.module.ts
 
 Angular modules
@@ -271,7 +380,7 @@ e.g. `ng-click`. In Angular 2 `(click)`
 #### Two Way Binding  DOM < > Component
 e.g. `ng-model`. In Angular 2 we use hotdogs (or a football in a box):
 `<input [(ngModel)]="vessel.name" />`
-Check the use of square and rounded brackets in the two case above.
+Check the use of square and rounded brackets in the two cases above. This requires importing the forms module in order to use.
 
 `ng generate component binding`
 
