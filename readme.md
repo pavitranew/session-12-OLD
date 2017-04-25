@@ -309,11 +309,120 @@ export class BindingComponent {
 
 ng-style, ng-src, ng-href, ng-click
 
-Now: `<img [src]="path' />`
-`(click)="save()`
-etc.
+Now: `<img [src]="path' />`, `(click)="save()`, etc.
 
-[Example](https://embed.plnkr.co/?show=preview)
+
+### Routing 
+
+`ng generate component pirates`
+
+app.component.html:
+
+```
+<div>
+  <header>
+    <h1>Pirates</h1>
+    <h3>Router Demo</h3>
+    <nav>
+      <ul>
+        <li><a [routerLink]="['/pirates']" href="">Pirates</a></li>
+        <li><a [routerLink]="['/vessels']" href="">Vessels</a></li>
+      </ul>
+    </nav>
+  </header>
+  <main>
+    <section>
+      <router-outlet></router-outlet>
+    </section>
+  </main>
+</div>
+```
+
+app-routing.module
+
+```
+import { NgModule } from '@angular/core';
+import { Routes, RouterModule } from '@angular/router';
+
+import { PiratesComponent } from './pirates/pirates.component';
+import { VesselsComponent } from './vessels/vessels.component';
+
+const routes: Routes = [
+  { path: 'pirates', component: PiratesComponent },
+  { path: 'vessels', component: VesselsComponent }
+];
+@NgModule({
+  imports: [RouterModule.forRoot(routes)],
+  exports: [RouterModule]
+})
+export class AppRoutingModule { }
+export const routableComponents = [
+  PiratesComponent,
+  VesselsComponent
+];
+```
+
+app.module:
+
+```
+import { AppRoutingModule, routableComponents } from './app-routing.module';
+```
+
+```
+  imports: [
+    BrowserModule,
+    FormsModule,
+    HttpModule,
+    AppRoutingModule
+  ],
+```
+
+Add styles to app.component:
+
+```
+import { Component } from '@angular/core';
+
+@Component({
+  selector: 'app-root',
+  templateUrl: './app.component.html',
+  styleUrls: ['./app.component.css'],
+  styles: [`
+    nav ul {list-style-type: none;}
+    nav ul li {padding: 4px;cursor: pointer;display:inline-block}
+  `],
+})
+export class AppComponent {
+  title = 'app works!';
+}
+```
+
+Touch ups
+
+default path
+
+`{ path: '', pathMatch: 'full', redirectTo: 'pirates', },`
+
+`{ path: '**', pathMatch: 'full', component: PageNotFoundComponent }`
+
+```
+import { Component } from '@angular/core';
+
+@Component({
+  moduleId: module.id,
+  template: `
+    <article class="template">
+      <h4>Inconceivable!</h4>
+      <div>I do not think this page is where you think it is.</div>
+    </article>
+  `
+})
+export class PageNotFoundComponent { }
+```
+
+#### pirates
+
+
+
 
 
 
