@@ -382,6 +382,7 @@ import { AppRoutingModule, routableComponents } from './app-routing.module';
 ```
 
 Add styles to app.component:
+<<<<<<< HEAD
 
 ```
 import { Component } from '@angular/core';
@@ -399,6 +400,53 @@ export class AppComponent {
   title = 'app works!';
 }
 ```
+=======
+
+```
+import { Component } from '@angular/core';
+
+@Component({
+  selector: 'app-root',
+  templateUrl: './app.component.html',
+  styleUrls: ['./app.component.css'],
+  styles: [`
+    nav ul {list-style-type: none;}
+    nav ul li {padding: 4px;cursor: pointer;display:inline-block}
+  `],
+})
+export class AppComponent {
+  title = 'app works!';
+}
+```
+
+Touch ups
+
+default path
+
+`{ path: '', pathMatch: 'full', redirectTo: 'pirates', },`
+
+`{ path: '**', pathMatch: 'full', component: PageNotFoundComponent }`
+
+```
+import { Component } from '@angular/core';
+
+@Component({
+  moduleId: module.id,
+  template: `
+    <article class="template">
+      <h4>Inconceivable!</h4>
+      <div>I do not think this page is where you think it is.</div>
+    </article>
+  `
+})
+export class PageNotFoundComponent { }
+```
+
+#### pirates
+
+
+
+>>>>>>> 47371a5371bebe1379103e6610863ba56eaf974d
 
 Touch ups
 
