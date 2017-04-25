@@ -1,0 +1,8 @@
+<ul>
+  <li *ngFor="let pirate of pirates">
+    {{pirate.name}}
+  </li>
+</ul>
+<div *ngIf="pirates.length">
+  <h3>You have {{pirates.length}} pirates</h3>
+</div>

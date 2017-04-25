@@ -1,15 +1,16 @@
-import { Component, OnInit } from '@angular/core';
+import { Component } from '@angular/core';
 
 @Component({
   selector: 'app-vessels',
   templateUrl: './vessels.component.html',
   styleUrls: ['./vessels.component.css']
 })
-export class VesselsComponent implements OnInit {
+export class VesselsComponent {
 
-  constructor() { }
-
-  ngOnInit() {
-  }
+  vessels = [
+    { id: 1, name: 'Adventure Galley' },
+    { id: 2, name: 'HMS Rackham' },
+    { id: 3, name: 'RNC Sinker' }
+  ];
 
 }

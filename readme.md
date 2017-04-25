@@ -10,7 +10,7 @@ Pirates list should display when on the pirates route. Use *ngFor and *ngIf simi
 
 Create a dropdown for the pirate selector:
 
-Duel.js:
+on dev2 branch of session 11 - Duel.js:
 
 was -
 ```
@@ -194,7 +194,7 @@ Structural directives contain a *. They are replacements for [html5 native templ
 
 Try `ng generate component vessels`
 
-app.module:
+bootstrap with the new component in app.module:
 
 ```
 import { BrowserModule } from '@angular/platform-browser';
@@ -237,7 +237,7 @@ export class VesselsComponent {
   vessels = [
     { id: 1, name: 'Adventure Galley' },
     { id: 2, name: 'HMS Rackham' },
-    { id: 3, name: 'Y-Wing Fighter' }
+    { id: 3, name: 'RNC Sinker' }
   ];
 
 }
@@ -269,7 +269,7 @@ e.g `ng-bind` in Angular 1. `[innerText]="vessel.name"` in Angular 2. The square
 e.g. `ng-click`. In Angular 2 `(click)`
 
 #### Two Way Binding  DOM < > Component
-e.g. `ng-model`. In Agular two use hotdogs:
+e.g. `ng-model`. In Angular 2 we use hotdogs (or a football in a box):
 `<input [(ngModel)]="vessel.name" />`
 Check the use of square and rounded brackets in the two case above.
 
@@ -383,7 +383,7 @@ export class BindingComponent {
 }
 ```
 
-#### Old directives
+#### Old style directives
 
 ng-style, ng-src, ng-href, ng-click
 
@@ -399,8 +399,7 @@ app.component.html:
 ```
 <div>
   <header>
-    <h1>Pirates</h1>
-    <h3>Router Demo</h3>
+    <h1>{{title}}</h1>
     <nav>
       <ul>
         <li><a [routerLink]="['/pirates']" href="">Pirates</a></li>
@@ -416,7 +415,7 @@ app.component.html:
 </div>
 ```
 
-app-routing.module
+NEW app-routing.module
 
 ```
 import { NgModule } from '@angular/core';
@@ -456,7 +455,25 @@ import { AppRoutingModule, routableComponents } from './app-routing.module';
 ```
 
 Add styles to app.component:
-<<<<<<< HEAD
+
+```
+import { Component } from '@angular/core';
+
+@Component({
+  selector: 'app-root',
+  templateUrl: './app.component.html',
+  styleUrls: ['./app.component.css'],
+  styles: [`
+    nav ul {list-style-type: none;}
+    nav ul li {padding: 4px;cursor: pointer;display:inline-block}
+  `],
+})
+export class AppComponent {
+  title = 'Pirates!';
+}
+```
+
+app.module:
 
 ```
 import { Component } from '@angular/core';
@@ -474,23 +491,33 @@ export class AppComponent {
   title = 'app works!';
 }
 ```
-=======
+
+set AppComponent as the bootstrap in app.module:
 
 ```
-import { Component } from '@angular/core';
+@NgModule({
+  declarations: [
+    AppComponent,
+    VesselsComponent,
+    BindingComponent,
+    PiratesComponent
+  ],
+  imports: [
+    BrowserModule,
+    FormsModule,
+    HttpModule,
+    AppRoutingModule
+  ],
+  providers: [],
+  bootstrap: [AppComponent]
+```
 
-@Component({
-  selector: 'app-root',
-  templateUrl: './app.component.html',
-  styleUrls: ['./app.component.css'],
-  styles: [`
-    nav ul {list-style-type: none;}
-    nav ul li {padding: 4px;cursor: pointer;display:inline-block}
-  `],
-})
-export class AppComponent {
-  title = 'app works!';
-}
+set to app-root in index.html:
+
+```
+<body>
+  <app-root>Loading...</app-root>
+</body>
 ```
 
 Touch ups
@@ -500,6 +527,8 @@ default path
 `{ path: '', pathMatch: 'full', redirectTo: 'pirates', },`
 
 `{ path: '**', pathMatch: 'full', component: PageNotFoundComponent }`
+
+
 
 ```
 import { Component } from '@angular/core';
@@ -516,19 +545,15 @@ import { Component } from '@angular/core';
 export class PageNotFoundComponent { }
 ```
 
-#### pirates
-
-
-
->>>>>>> 47371a5371bebe1379103e6610863ba56eaf974d
-
-Touch ups
+#### Routing Touch ups
 
 default path
 
 `{ path: '', pathMatch: 'full', redirectTo: 'pirates', },`
 
 `{ path: '**', pathMatch: 'full', component: PageNotFoundComponent }`
+
+pagenotfound.component:
 
 ```
 import { Component } from '@angular/core';
