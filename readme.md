@@ -1,8 +1,12 @@
 # MEAN Session 12
 
 ## Homework
+Pirates list should display when on the pirates route. Use *ngFor and *ngIf similarly to the vessels html.
+
+## Reading
 [Angular Quickstart Tutorial](https://angular.io/docs/ts/latest/)
 
+## Angular 2
 
 [Install Angular CLI](https://angular.io/docs/ts/latest/cli-quickstart.html)
 
@@ -14,7 +18,7 @@
 
 App is at `http://localhost:4200/`
 
-We can use ES5, ES2016, or TypeScript to write Angular 2. We will write all code samples with TypeScript. (Like SASS is to CSS -added features.)
+We can use ES5, ES2016, or TypeScript to write Angular 2. We will write all code samples with TypeScript. (Like SASS is to CSS - added features.)
 
 ### app.module.ts
 
@@ -419,6 +423,99 @@ import { Component } from '@angular/core';
 export class PageNotFoundComponent { }
 ```
 
+
+#### pirates
+
+pirates:
+
+```
+  pirates = [
+  {
+    name: 'John Rackham',
+    image: 'avatar.svg',
+    weapon: 'Sword',
+    vessel: 'Bounty'
+  }, {
+    name: 'Donald Trump',
+    image: 'avatar.svg',
+    weapon: 'Twitter',
+    vessel: 'Stout'
+  }, {
+    name: 'Sea Dog',
+    image: 'avatar.svg',
+    weapon: 'Sword',
+    vessel: 'Bounty'
+  }, {
+    name: 'Jean Lafitte',
+    image: 'avatar.svg',
+    weapon: 'Sword',
+    vessel: 'Bounty'
+  }
+  ]
+```
+
+Add to pirates.component:
+
+```
+import { Component } from '@angular/core';
+
+@Component({
+  selector: 'app-pirates',
+  templateUrl: './pirates.component.html',
+  styleUrls: ['./pirates.component.css']
+})
+export class PiratesComponent {
+
+  pirates = [
+  {
+    name: 'John Rackham',
+    image: 'avatar.svg',
+    weapon: 'Sword',
+    vessel: 'Bounty'
+  }, {
+    name: 'Donald Trump',
+    image: 'avatar.svg',
+    weapon: 'Twitter',
+    vessel: 'Stout'
+  }, {
+    name: 'Sea Dog',
+    image: 'avatar.svg',
+    weapon: 'Sword',
+    vessel: 'Bounty'
+  }, {
+    name: 'Jean Lafitte',
+    image: 'avatar.svg',
+    weapon: 'Sword',
+    vessel: 'Bounty'
+  }
+  ]
+}
+```
+
+Edit the pirates.component.html to show a pirates list.
+
+
+
+
+
+### Notes
+
+HTTP 
+- $http.get('api/...') vs 
+- http.get('api/...')
+
+Can return a promise but returns an rxjs observable by default.
+
+1. Import the http module into the app root
+2. Call http.get in a service and return a mapped result
+3. Subscribe to the service's function in a component
+
+In a new api folder in app.
+
+
+=======
+
+
 ### Vessels Service
 
 Isolate data management in reusable services and use dependency injection to make them available. 
@@ -427,9 +524,32 @@ Using onInit hooks to load code before rendering.
 
 Angular 1 used a confusing array of factories, providers, serivces etc. In Angular 2 we simply use a class.
 
-An example of a reusable serivce:
+Current vessels.component:
 
 ```
+import { Component } from '@angular/core';
+
+@Component({
+  selector: 'app-vessels',
+  templateUrl: './vessels.component.html',
+  styleUrls: ['./vessels.component.css']
+})
+export class VesselsComponent {
+
+  vessels = [
+    { id: 1, name: 'Adventure Galley' },
+    { id: 2, name: 'HMS Rackham' },
+    { id: 3, name: 'Y-Wing Fighter' }
+  ];
+
+}
+```
+
+vessel.service - a reusable service:
+
+```
+import { Injectable } from '@angular/core';
+
 @Injectable()
 export class VesselService {
   getVessels() {
@@ -443,35 +563,6 @@ export class VesselService {
 ```
 
 It simply exports a class.
-
-Need services
-
-
-
-
-
-
-
-
-#### pirates
-
-HTTP 
-- $http.get('api/...') vs 
-- http.get('api/...')
-
-Can return a promise but returns an rxjs observable by default.
-
-1. Import the http module into the app root
-2. Call http.get in a service and return a mapped result
-3. Subscribe to the service's function in a component
-
-
-
-
-
-
-
-
 
 
 
