@@ -1,10 +1,82 @@
 # MEAN Session 12
 
 ## Homework
-Pirates list should display when on the pirates route. Use *ngFor and *ngIf similarly to the vessels html.
+Pirates list should display when on the pirates route. Use *ngFor and *ngIf similarly to the vessels html. Apply styling.
 
 ## Reading
 [Angular Quickstart Tutorial](https://angular.io/docs/ts/latest/)
+
+### React Homework
+
+Create a dropdown for the pirate selector:
+
+on dev2 branch of session 11 - Duel.js:
+
+was -
+```
+        <input
+          id='piratename'
+          placeholder='Pirate Name'
+          type='text'
+          autoComplete='off'
+          value={this.state.username}
+          onChange={this.handleChange}
+          />
+```
+
+became -
+
+```
+render(){
+    return (
+      <form className='column' onSubmit={this.handleSubmit}>
+        <label className='header' htmlFor='piratename'>
+        {this.props.label}
+        </label>
+          <select 
+          value={this.state.piratename} 
+          onChange={this.handleChange}>
+              {
+              Object.keys(this.state.pirates).map( (key) => 
+                <option 
+                  key={key} 
+                  value={this.state.pirates[key].piratename}>
+                  {this.state.pirates[key].piratename}
+                </option>
+              )
+            }
+          </select>
+
+          <button
+          className='button'
+          type='submit'
+          disabled={!this.state.piratename}>
+            Submit
+          </button>
+      </form>
+    )
+  }
+```
+
+```
+  handleChange(event){
+    const value = event.target.value
+    this.setState(function(){
+      return {
+        piratename: value
+      }
+    })
+  }
+```
+
+needed to make state available -
+
+```
+  this.state = {
+    piratename: '',
+    pirates: {}
+    }
+```
 
 ## Angular 2
 
@@ -18,7 +90,9 @@ Pirates list should display when on the pirates route. Use *ngFor and *ngIf simi
 
 App is at `http://localhost:4200/`
 
-We can use ES5, ES2016, or TypeScript to write Angular 2. We will write all code samples with TypeScript. (Like SASS is to CSS - added features.)
+We can use ES5, ES2016, or TypeScript to write Angular 2. 
+
+We will write all code samples with [TypeScript](http://www.typescriptlang.org). (Like SASS is to CSS - added features.)
 
 ### app.module.ts
 
@@ -50,12 +124,12 @@ export class AppModule { }
 Note: 
 * ES6 modules, named imports from node_modules. 
 * Custom imports from local file system `('./ ...')`. 
-* ES6 destructuring syntax `import { BrwoserModule }`
+* ES6 destructuring syntax `import { BrowserModule }`
 * ES6 Classes
 
 @Decorators - metadata about components (where to find the template etc.)
 - `@NgModule` decorates the exported class AppModule
-- `imports` replaces angular 1 dependency injection e.g.: `angular.module('app, [])`
+- `imports` replaces Angular 1 dependency injection e.g.: `angular.module('app, [])`
 - bootstrap defines the starting component
 - export AppModule replaces `<div ng-app='app'>` and is our root module
 
@@ -116,11 +190,11 @@ Structural directives contain a *. They are replacements for [html5 native templ
 
 *ngFor, *ngIf
 
-[Example]
+#### Example
 
 Try `ng generate component vessels`
 
-app.module:
+bootstrap with the new component in app.module:
 
 ```
 import { BrowserModule } from '@angular/platform-browser';
@@ -163,7 +237,7 @@ export class VesselsComponent {
   vessels = [
     { id: 1, name: 'Adventure Galley' },
     { id: 2, name: 'HMS Rackham' },
-    { id: 3, name: 'Y-Wing Fighter' }
+    { id: 3, name: 'RNC Sinker' }
   ];
 
 }
@@ -195,7 +269,7 @@ e.g `ng-bind` in Angular 1. `[innerText]="vessel.name"` in Angular 2. The square
 e.g. `ng-click`. In Angular 2 `(click)`
 
 #### Two Way Binding  DOM < > Component
-e.g. `ng-model`. In Agular two use hotdogs:
+e.g. `ng-model`. In Angular 2 we use hotdogs (or a football in a box):
 `<input [(ngModel)]="vessel.name" />`
 Check the use of square and rounded brackets in the two case above.
 
@@ -309,7 +383,7 @@ export class BindingComponent {
 }
 ```
 
-#### Old directives
+#### Old style directives
 
 ng-style, ng-src, ng-href, ng-click
 
@@ -325,8 +399,7 @@ app.component.html:
 ```
 <div>
   <header>
-    <h1>Pirates</h1>
-    <h3>Router Demo</h3>
+    <h1>{{title}}</h1>
     <nav>
       <ul>
         <li><a [routerLink]="['/pirates']" href="">Pirates</a></li>
@@ -342,7 +415,7 @@ app.component.html:
 </div>
 ```
 
-app-routing.module
+NEW app-routing.module
 
 ```
 import { NgModule } from '@angular/core';
@@ -382,7 +455,25 @@ import { AppRoutingModule, routableComponents } from './app-routing.module';
 ```
 
 Add styles to app.component:
-<<<<<<< HEAD
+
+```
+import { Component } from '@angular/core';
+
+@Component({
+  selector: 'app-root',
+  templateUrl: './app.component.html',
+  styleUrls: ['./app.component.css'],
+  styles: [`
+    nav ul {list-style-type: none;}
+    nav ul li {padding: 4px;cursor: pointer;display:inline-block}
+  `],
+})
+export class AppComponent {
+  title = 'Pirates!';
+}
+```
+
+app.module:
 
 ```
 import { Component } from '@angular/core';
@@ -400,23 +491,33 @@ export class AppComponent {
   title = 'app works!';
 }
 ```
-=======
+
+set AppComponent as the bootstrap in app.module:
 
 ```
-import { Component } from '@angular/core';
+@NgModule({
+  declarations: [
+    AppComponent,
+    VesselsComponent,
+    BindingComponent,
+    PiratesComponent
+  ],
+  imports: [
+    BrowserModule,
+    FormsModule,
+    HttpModule,
+    AppRoutingModule
+  ],
+  providers: [],
+  bootstrap: [AppComponent]
+```
 
-@Component({
-  selector: 'app-root',
-  templateUrl: './app.component.html',
-  styleUrls: ['./app.component.css'],
-  styles: [`
-    nav ul {list-style-type: none;}
-    nav ul li {padding: 4px;cursor: pointer;display:inline-block}
-  `],
-})
-export class AppComponent {
-  title = 'app works!';
-}
+set to app-root in index.html:
+
+```
+<body>
+  <app-root>Loading...</app-root>
+</body>
 ```
 
 Touch ups
@@ -426,6 +527,8 @@ default path
 `{ path: '', pathMatch: 'full', redirectTo: 'pirates', },`
 
 `{ path: '**', pathMatch: 'full', component: PageNotFoundComponent }`
+
+
 
 ```
 import { Component } from '@angular/core';
@@ -442,19 +545,15 @@ import { Component } from '@angular/core';
 export class PageNotFoundComponent { }
 ```
 
-#### pirates
-
-
-
->>>>>>> 47371a5371bebe1379103e6610863ba56eaf974d
-
-Touch ups
+#### Routing Touch ups
 
 default path
 
 `{ path: '', pathMatch: 'full', redirectTo: 'pirates', },`
 
 `{ path: '**', pathMatch: 'full', component: PageNotFoundComponent }`
+
+pagenotfound.component:
 
 ```
 import { Component } from '@angular/core';
@@ -469,6 +568,41 @@ import { Component } from '@angular/core';
   `
 })
 export class PageNotFoundComponent { }
+```
+
+import it into app-routing.module:
+
+```
+import { PageNotFoundComponent } from './pagenotfound.component';
+```
+
+and export it in the same module:
+
+```
+export const routableComponents = [
+  PiratesComponent,
+  VesselsComponent,
+  PageNotFoundComponent
+];
+```
+
+routableComponents in app.module:
+
+```
+import { AppRoutingModule, routableComponents } from './app-routing.module';
+```
+
+Be sure to add it to the declarations:
+
+```
+@NgModule({
+  declarations: [
+    AppComponent,
+    VesselsComponent,
+    BindingComponent,
+    PiratesComponent,
+    routableComponents
+  ],
 ```
 
 
@@ -541,6 +675,8 @@ export class PiratesComponent {
 ```
 
 Edit the pirates.component.html to show a pirates list.
+
+
 
 
 
