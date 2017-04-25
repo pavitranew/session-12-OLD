@@ -1,8 +1,12 @@
 # MEAN Session 12
 
 ## Homework
+Pirates list should display when on the pirates route. Use *ngFor and *ngIf similarly to the vessels html.
+
+## Reading
 [Angular Quickstart Tutorial](https://angular.io/docs/ts/latest/)
 
+## Angular 2
 
 [Install Angular CLI](https://angular.io/docs/ts/latest/cli-quickstart.html)
 
@@ -14,7 +18,7 @@
 
 App is at `http://localhost:4200/`
 
-We can use ES5, ES2016, or TypeScript to write Angular 2. We will write all code samples with TypeScript. (Like SASS is to CSS -added features.)
+We can use ES5, ES2016, or TypeScript to write Angular 2. We will write all code samples with TypeScript. (Like SASS is to CSS - added features.)
 
 ### app.module.ts
 
@@ -309,16 +313,256 @@ export class BindingComponent {
 
 ng-style, ng-src, ng-href, ng-click
 
-Now: `<img [src]="path' />`
-`(click)="save()`
-etc.
-
-[Example](https://embed.plnkr.co/?show=preview)
+Now: `<img [src]="path' />`, `(click)="save()`, etc.
 
 
+### Routing 
+
+`ng generate component pirates`
+
+app.component.html:
+
+```
+<div>
+  <header>
+    <h1>Pirates</h1>
+    <h3>Router Demo</h3>
+    <nav>
+      <ul>
+        <li><a [routerLink]="['/pirates']" href="">Pirates</a></li>
+        <li><a [routerLink]="['/vessels']" href="">Vessels</a></li>
+      </ul>
+    </nav>
+  </header>
+  <main>
+    <section>
+      <router-outlet></router-outlet>
+    </section>
+  </main>
+</div>
+```
+
+app-routing.module
+
+```
+import { NgModule } from '@angular/core';
+import { Routes, RouterModule } from '@angular/router';
+
+import { PiratesComponent } from './pirates/pirates.component';
+import { VesselsComponent } from './vessels/vessels.component';
+
+const routes: Routes = [
+  { path: 'pirates', component: PiratesComponent },
+  { path: 'vessels', component: VesselsComponent }
+];
+@NgModule({
+  imports: [RouterModule.forRoot(routes)],
+  exports: [RouterModule]
+})
+export class AppRoutingModule { }
+export const routableComponents = [
+  PiratesComponent,
+  VesselsComponent
+];
+```
+
+app.module:
+
+```
+import { AppRoutingModule, routableComponents } from './app-routing.module';
+```
+
+```
+  imports: [
+    BrowserModule,
+    FormsModule,
+    HttpModule,
+    AppRoutingModule
+  ],
+```
+
+Add styles to app.component:
+
+```
+import { Component } from '@angular/core';
+
+@Component({
+  selector: 'app-root',
+  templateUrl: './app.component.html',
+  styleUrls: ['./app.component.css'],
+  styles: [`
+    nav ul {list-style-type: none;}
+    nav ul li {padding: 4px;cursor: pointer;display:inline-block}
+  `],
+})
+export class AppComponent {
+  title = 'app works!';
+}
+```
+
+Touch ups
+
+default path
+
+`{ path: '', pathMatch: 'full', redirectTo: 'pirates', },`
+
+`{ path: '**', pathMatch: 'full', component: PageNotFoundComponent }`
+
+```
+import { Component } from '@angular/core';
+
+@Component({
+  moduleId: module.id,
+  template: `
+    <article class="template">
+      <h4>Inconceivable!</h4>
+      <div>I do not think this page is where you think it is.</div>
+    </article>
+  `
+})
+export class PageNotFoundComponent { }
+```
+
+
+#### pirates
+
+pirates:
+
+```
+  pirates = [
+  {
+    name: 'John Rackham',
+    image: 'avatar.svg',
+    weapon: 'Sword',
+    vessel: 'Bounty'
+  }, {
+    name: 'Donald Trump',
+    image: 'avatar.svg',
+    weapon: 'Twitter',
+    vessel: 'Stout'
+  }, {
+    name: 'Sea Dog',
+    image: 'avatar.svg',
+    weapon: 'Sword',
+    vessel: 'Bounty'
+  }, {
+    name: 'Jean Lafitte',
+    image: 'avatar.svg',
+    weapon: 'Sword',
+    vessel: 'Bounty'
+  }
+  ]
+```
+
+Add to pirates.component:
+
+```
+import { Component } from '@angular/core';
+
+@Component({
+  selector: 'app-pirates',
+  templateUrl: './pirates.component.html',
+  styleUrls: ['./pirates.component.css']
+})
+export class PiratesComponent {
+
+  pirates = [
+  {
+    name: 'John Rackham',
+    image: 'avatar.svg',
+    weapon: 'Sword',
+    vessel: 'Bounty'
+  }, {
+    name: 'Donald Trump',
+    image: 'avatar.svg',
+    weapon: 'Twitter',
+    vessel: 'Stout'
+  }, {
+    name: 'Sea Dog',
+    image: 'avatar.svg',
+    weapon: 'Sword',
+    vessel: 'Bounty'
+  }, {
+    name: 'Jean Lafitte',
+    image: 'avatar.svg',
+    weapon: 'Sword',
+    vessel: 'Bounty'
+  }
+  ]
+}
+```
+
+Edit the pirates.component.html to show a pirates list.
 
 
 
+
+
+### Notes
+
+HTTP 
+- $http.get('api/...') vs 
+- http.get('api/...')
+
+Can return a promise but returns an rxjs observable by default.
+
+1. Import the http module into the app root
+2. Call http.get in a service and return a mapped result
+3. Subscribe to the service's function in a component
+
+In a new api folder in app.
+
+
+=======
+
+
+### Vessels Service
+
+Isolate data management in reusable services and use dependency injection to make them available. 
+
+Using onInit hooks to load code before rendering.
+
+Angular 1 used a confusing array of factories, providers, serivces etc. In Angular 2 we simply use a class.
+
+Current vessels.component:
+
+```
+import { Component } from '@angular/core';
+
+@Component({
+  selector: 'app-vessels',
+  templateUrl: './vessels.component.html',
+  styleUrls: ['./vessels.component.css']
+})
+export class VesselsComponent {
+
+  vessels = [
+    { id: 1, name: 'Adventure Galley' },
+    { id: 2, name: 'HMS Rackham' },
+    { id: 3, name: 'Y-Wing Fighter' }
+  ];
+
+}
+```
+
+vessel.service - a reusable service:
+
+```
+import { Injectable } from '@angular/core';
+
+@Injectable()
+export class VesselService {
+  getVessels() {
+    return [
+    { id: 1, name: 'Adventure Galley' },
+    { id: 2, name: 'HMS Rackham' },
+    { id: 3, name: 'Y-Wing Fighter' }
+    ]
+  }
+}
+```
+
+It simply exports a class.
 
 
 
