@@ -1,7 +1,7 @@
 # MEAN Session 12
 
 ## Homework
-Pirates list should display when on the pirates route. Use *ngFor and *ngIf similarly to the vessels html. Apply styling.
+Homework Update: The goal is to make on of the pirate names clickable and display a noticiation below the list that includes the `pirate.name`. There are notes below (in the Notes section) and a working sample in the dev branch of this repo.
 
 ## Reading
 [Angular Quickstart Tutorial](https://angular.io/docs/ts/latest/)
